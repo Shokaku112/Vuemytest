@@ -384,7 +384,7 @@
         // d = d.replace();
         // name.replace(/\"/g, "");
         console.log(name)
-        var url="http://localhost:3000/api/user/searchpage?hotword="+sname
+        var url="http://192.168.88.107:3000/api/user/searchpage?hotword="+sname
         var TrueData=[];
         alert(name)
         //发送ajax请求；
@@ -620,7 +620,7 @@
         var username=$("#username").val()
         var useraddress=$("#useraddress").val()
         var arr={params1:[],params2:[],params3:[]};
-        var url="http://localhost:3000/api/user/getuserdata?username="+username+"&useraddress="+useraddress+"&orders="+getorder;
+        var url="http://192.168.88.107:3000/api/user/getuserdata?username="+username+"&useraddress="+useraddress+"&orders="+getorder;
         console.log($("#mytable").find("tbody tr").each(function () {
             var child = $(this).children();
             // console.log(child.text());

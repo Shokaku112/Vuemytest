@@ -11,7 +11,7 @@
                 <a name="index_none_header_sysc" href="#"></a>
                 <form id="app2">
                     <input v-model='search' id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-                    <el-button type="success" style="width: 115px;margin-left: 11px ;height: 46px;" ><a  style="border: 1px; font-size:32px;text-decoration:none;" href="http://localhost:9999/ad.html" @click="onItemclick2" >搜索</a></el-button>
+                    <el-button type="success" style="width: 115px;margin-left: 11px ;height: 46px;" ><a  style="border: 1px; font-size:32px;text-decoration:none;" href="http://192.168.88.107:9999/ad.html" @click="onItemclick2" >搜索</a></el-button>
                 </form>
             </div>
             <ul  class="list-group" id="searchResult" style="padding-left: 165px;position: relative">
@@ -368,7 +368,7 @@
                 },
                 getserachData(){
                     var that=this;
-                    var url="http://localhost:3000/api/user/search?hotword="+hotsport
+                    var url="http://192.168.88.107:3000/api/user/search?hotword="+hotsport
                     var hotsport=$('#searchInput').val();
                     axios.get(url).then(function (responese) {
                         that.products=[];

@@ -222,7 +222,7 @@
             testDel(){
                 var getFormorder=this.formorder;
                 var getproduct=this.productname;
-                var url="http://localhost:3000/api/admin/deleteForm?orders="+getFormorder+"&productname="+getproduct;
+                var url="http://192.168.88.107:3000/api/admin/deleteForm?orders="+getFormorder+"&productname="+getproduct;
                 axios.get(url).then(function (reponse) {
 
                 }).catch(function (error) {
@@ -236,13 +236,13 @@
             //点击删除后先把内容信息存好
             formget2(e){
                 this.dialogVisible2=true;
-                console.log(e.currentTarget.parentNode.childNodes[2].childNodes);//通过nodelist获取当前父节点的所有子节点
-                console.log(e.currentTarget.parentNode.parentNode.parentNode.childNodes[0].lastChild.textContent);
-                console.log(e.currentTarget.parentNode.parentNode.parentNode.childNodes[1].lastChild.textContent);
-                console.log(e.currentTarget.parentNode.parentNode.parentNode.childNodes[2].lastChild.textContent);
-                console.log(e.currentTarget.parentNode.parentNode.parentNode.childNodes[3].lastChild.textContent);
-                console.log(e.currentTarget.parentNode.parentNode.parentNode.childNodes[4].lastChild.textContent);
-                console.log(e.currentTarget.parentNode.parentNode.parentNode.childNodes[5].lastChild.textContent);
+                // console.log(e.currentTarget.parentNode.childNodes[2].childNodes);//通过nodelist获取当前父节点的所有子节点
+                // console.log(e.currentTarget.parentNode.parentNode.parentNode.childNodes[0].lastChild.textContent);
+                // console.log(e.currentTarget.parentNode.parentNode.parentNode.childNodes[1].lastChild.textContent);
+                // console.log(e.currentTarget.parentNode.parentNode.parentNode.childNodes[2].lastChild.textContent);
+                // console.log(e.currentTarget.parentNode.parentNode.parentNode.childNodes[3].lastChild.textContent);
+                // console.log(e.currentTarget.parentNode.parentNode.parentNode.childNodes[4].lastChild.textContent);
+                // console.log(e.currentTarget.parentNode.parentNode.parentNode.childNodes[5].lastChild.textContent);
                 var client=e.currentTarget.parentNode.parentNode.parentNode.childNodes[0].lastChild.textContent;
                 var formorder=e.currentTarget.parentNode.parentNode.parentNode.childNodes[1].lastChild.textContent;
                 var productname=e.currentTarget.parentNode.parentNode.parentNode.childNodes[2].lastChild.textContent;
@@ -283,7 +283,7 @@
                 var gettotal=this.total;
                 var getaddress=this.address;
                 var getorderstatus=this.orderstatus;
-                var url="http://localhost:3000/api/admin/editForm?getFormorder="+getFormorder+
+                var url="http://192.168.88.107:3000/api/admin/editForm?getFormorder="+getFormorder+
                     "&getproduct="+getproduct+
                     "&getclient="+getclient+
                     "&getnumber="+getnumber+
@@ -312,7 +312,7 @@
 
             renderdata(){
                 var that=this;
-                var url="http://localhost:3000/api/admin/getform"
+                var url="http://192.168.88.107:3000/api/admin/getform"
                 axios.get(url).then(function (data) {
                     console.log(data.data);
                     for (var i = 0; i < data.data.length; i++) {

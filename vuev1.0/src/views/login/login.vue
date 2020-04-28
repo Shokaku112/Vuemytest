@@ -3,7 +3,7 @@
 
 
 
-    <div style="width: 340px;height: 520px;position: relative;border-radius: 10px;opacity: 75%;background-color: gray;left:40%;top:100px;z-index: 100">
+    <div style="width: 340px;height: 520px;position: relative;border-radius: 10px;opacity: 75%;background-color: gray;left:38%;top:100px;z-index: 100">
 
         <div style="width: 310px;height: 180px;background: none;left: 10%;margin-left: 15px;text-align: center">
             <img src="../../../public/image/3.jpg" style="max-width: 75%;margin-top: 15px">
@@ -64,6 +64,7 @@
                 isactiv:false,
                 userName:"",
                 userPwd:"",
+                Times:0,
                 //动态绑定组件（好处：如果要生成多一个一样的模板标签或者组件可以直接通过该方法复制粘贴使用v-for=“item in tab（数组名字)”）
                 data1:[
                     {txt:"登陆",status1:true},
@@ -96,54 +97,71 @@
                         that.$router.push("/store")
                     }
                 },
+                gettimes(ms){
+                    return new Promise((resolve,reject)=>{
+                        setTimeout(resolve,ms,'5spass');
+                    }).catch((e) => {});
+                },
                 //设置sessionstorage的方法
                 toogleMenu()
                 {
 
                     var that=this;
-                    var returnData={
-                        status:-1,
-                        data:["ojbk","dwksda"]
+                    this.Times++;
+                    if(this.Times>5){
+                        alert("你的登录次数过于频繁请20秒后重试!");
+                        this.gettimes(20000).then((value)=>{
+                            console.log(value);
+                            this.Times=0;
+                        })
                     }
-                        var url="http://localhost:3000/api/user/login?username="+this.userName+"&userpwd="+this.userPwd
+                    else{
+                        var returnData={
+                            status:-1,
+                            data:["ojbk","dwksda"]
+                        }
+                        var url="http://192.168.88.107:3000/api/user/login?username="+this.userName+"&userpwd="+this.userPwd
                         console.log(url)
 
                         axios.get(url)
-                        .then(function (response) {
+                            .then(function (response) {
 
-                            returnData=response.data;
-                            console.log(response.data);
-                            console.log(returnData);
-                            // 保存当前页面上data数据
-                            if(returnData.status==1){
-                                alert("true")
-                                var data=returnData
-                                sessionStorage.setItem('data', JSON.stringify(data))
+                                returnData=response.data;
+                                console.log(response.data);
+                                console.log(returnData);
+                                // 保存当前页面上data数据
+                                if(returnData.status==1){
+                                    alert("true")
+                                    var data=returnData
+                                    sessionStorage.setItem('data', JSON.stringify(data))
 
-                               //注意指代this的作用域需要that=this取代
-                                 that.$router.push('/store')
-                                // location.href="http://localhost:9999/?#/store"
+                                    //注意指代this的作用域需要that=this取代
+                                    that.$router.push('/store')
+                                    // location.href="http://localhost:9999/?#/store"
 
 
-                            }
-                            //admin用户status值
-                            if(returnData.status===2){
-                                alert("admin")
-                                var data=returnData
-                                sessionStorage.setItem('data', JSON.stringify(data))
-                                that.$router.push('/manage')
-                            }
-                            if(returnData.status==-1){
-                                that.$message('账号密码不对或者不能为空');
-                                //注意指代this的作用域需要that=this取代
-                                that.$router.push('/login')
-                                // location.href="http://localhost:9999/?#/store"
-                            }
+                                }
+                                //admin用户status值
+                                if(returnData.status===2){
+                                    alert("admin")
+                                    var data=returnData
+                                    sessionStorage.setItem('data', JSON.stringify(data))
+                                    that.$router.push('/manage')
+                                }
+                                if(returnData.status==-1){
+                                    that.$message('账号密码不对或者不能为空');
+                                    //注意指代this的作用域需要that=this取代
+                                    that.$router.push('/login')
+                                    // location.href="http://localhost:9999/?#/store"
 
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
+                                }
+
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    }
+
                 },
 
                 dyncMount(){

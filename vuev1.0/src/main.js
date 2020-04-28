@@ -11,7 +11,12 @@ import navv from"./views/nav/nav"
 
 
 
+import Router from 'vue-router'
 
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
 
 //需要导入的相关资源文件
 
