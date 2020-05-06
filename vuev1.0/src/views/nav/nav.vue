@@ -8,7 +8,7 @@
                 <div>
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">首页</a></li>
-                        <li><a href="#">SVN</a></li>
+                        <li @click="play"><a>播放音乐</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 合作商务 <b class="caret"></b>

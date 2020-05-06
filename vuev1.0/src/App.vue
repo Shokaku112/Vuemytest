@@ -1,8 +1,12 @@
 <template>
   <div id="app">
   <Navv v-if="reFresh"> </Navv>
+   <audio autoplay :src="Music" controls="controls" style="width: 100vw;" ></audio>
     <router-view :key="$route.fullPath"/>
+  
+    
   </div>
+
 </template>
 
 
@@ -31,12 +35,15 @@
 </style>
 <script>
     import Nav from "./views/nav/nav";
+    import music from'./assets/music/suitlife.mp3'
     export default {
         components: {Nav},
         data(){
             return{
             reFresh:true,
-            menuTree:[]
+            menuTree:[],
+            Music:music
+            
         }
         },
         watch: {

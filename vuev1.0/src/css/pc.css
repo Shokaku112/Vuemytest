@@ -1,0 +1,36 @@
+.pcbody1{
+    width: 55vw;
+    height: 100vh;
+    background: blue;
+    position: relative;
+    float: right;right: 30%;
+}
+.pc1{
+    width: 55vw;
+    height: 40vh;
+    background: green;
+    position: relative;
+}
+.circlepc1{
+    position: relative; 
+    background: grey;
+    width: 136px;
+    height: 136px;
+    float: left;top:28vh;
+    margin-left: 10px;
+}
+.userpartpc1{
+    float: left;
+    margin-top:55px;
+    text-align: left;
+}
+.userpartpcdiv1{
+    margin-left: 20px;
+}
+.usernamepc1{
+    font-size: 24px;
+}
+.useridpc1{
+    color: gray; 
+    font-size: 24px;
+}

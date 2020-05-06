@@ -1,73 +1,87 @@
 <template>
-    <div>
-        <el-table
-                :data="tableData"
-                style="width: 100%">
-            <el-table-column
-                    prop="date"
-                    label="支付日期"
-                    width="180">
-            </el-table-column>
-            <el-table-column
-                    prop="product"
-                    label="商品名"
-                    width="180">
-            </el-table-column>
-            <el-table-column
-                    prop="number"
-                    label="数量"
-                    width="50">
-            </el-table-column>
-            <el-table-column
-                    prop="total"
-                    label="价格"
-                    width="50">
-            </el-table-column>
-            <el-table-column
-                    prop="address"
-                    label="地址"
-            width="200">
-            </el-table-column>
-            <el-table-column
-                    prop="status"
-                    label="订单状态"
-                    width="150">
-            </el-table-column>
-        </el-table>
+   <div   v-bind:class="Style.body">
+    <div v-bind:class="Style.pc">
+        <img src="../../assets/image/icon3.png" v-bind:class="Style.circle" >
     </div>
+    <div id="usernamepart" v-bind:class="Style.userpart">
+        <div v-bind:class="Style.userpcdiv">
+            <div><span v-bind:class="Style.username">Shokaku</span></div>
+           <div> <span v-bind:class="Style.userid">@Shokaku112</span></div>
+            <p id="usertext">this is bio</p>
+        </div>
+    </div>
+    
+   </div>
 </template>
 
 <script>
+   
     import Axios from "axios"
+    // import moblile from '../../css/mobile.css'
+    // import PC from '../../css/pc.css'
+
+   
+     
+
     export default {
         created(){
+            //判断当前是PC端还是手机端
+            let websys=navigator.userAgent;
+            let mobileAgents=["Android","iPhone","iPad"]
+            let isPc=true;
+            
+            console.log(websys)
+            for(let key in mobileAgents){
+                console.log(mobileAgents[key])
+                if(websys.indexOf(mobileAgents[key])>0){
+                    isPc=false;
+                    console.log("key is"+key+"手机")
+                    break;
+
+                }else{
+                    isPc=true;
+                      console.log("电脑")
+                }
+            }
+            if(isPc){
+                this.Style.body="pcbody1"
+                this.Style.pc="pc1"
+                this.Style.circle="img-circle circlepc1"
+                this.Style.userpart="userpartpc1"
+                this.Style.userpcdiv="userpartpcdiv1"
+                this.Style.username="usernamepc1"
+                this.Style.userid="useridpc1"    
+            }
+                
+           
+            var css=require("../../css/pc.css");
+            var css2=require("../../css/mobile.css");
             let data = JSON.parse(sessionStorage.getItem('data'))
             var username=data.username;
             var url="http://localhost:3000/api/user/getuserorder?username="+username;
-            Axios.get(url).then(function (responese) {
+            if(isPc){
+               
+            }
+            Axios.get(url).then(function (resonese) {
                 console.log(responese.data);
             })
+           
+              
+            
 
         },
         data() {
             return {
-                tableData: [{
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1517 弄'
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1519 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
-                }]
+                Style:{
+                    body:"pcbody2",
+                    pc:"pc2",
+                    circle:"img-circle circlepc2",
+                    userpart:"userpartpc2",
+                    userpcdiv:"userpartpcdiv2",
+                    username:"usernamepc2",
+                    userid:"useridpc2",
+                },
+               
             }
         },
 
