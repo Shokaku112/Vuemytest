@@ -1,7 +1,7 @@
 .pcbody1{
     width: 55vw;
     height: 100vh;
-    background: blue;
+  
     position: relative;
     float: right;right: 30%;
 }
@@ -28,9 +28,15 @@
     margin-left: 20px;
 }
 .usernamepc1{
-    font-size: 24px;
+    font-size: 20px;
 }
 .useridpc1{
     color: gray; 
     font-size: 24px;
+}
+.usersignename{
+    margin: 5px 0px 5px 0px;
+}
+.fllow{
+    margin: 5px 0px 5px 0px;
 }

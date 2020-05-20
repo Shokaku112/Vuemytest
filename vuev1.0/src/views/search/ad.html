@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/help-center.css" />
+       <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <title>我的购物车</title>
 
     <style>
@@ -437,6 +438,9 @@
         var oBox = document.getElementById("box");
         var oCar = document.getElementById("car");
         var oUl = document.getElementsByTagName("ul")[0];
+        var predata=sessionStorage.getItem('ocar')
+        
+        $("#car").append(predata)
 
         for (var i = 0; i < aData.length; i++) {
             var oLi = document.createElement("li");
@@ -547,6 +551,16 @@
                         getAmount();
                     }
                 }
+                var cache='';
+                            $(".row.hid").each(function(){
+                                //  console.log(typeof $(this).html())
+                                //  cache=$(this).html()+$(this).html()
+                                //  console.log($(this).html());
+                                //  cache=cache+'"<div class="row hid">"'+$(this).html()+"</div>"
+                                 cache=cache+'<div class="row hid">'+$(this).html()+'</div>'
+                            })
+                            console.log(cache);
+                            sessionStorage.setItem('ocar',cache);
 
             }
         }

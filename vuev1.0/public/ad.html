@@ -373,9 +373,9 @@
     window.onload = function() {
 
         var name=window.sessionStorage.getItem("hotword").toString();
-        alert("name: "+name)
+        // alert("name: "+name)
         var sname=name.replace(/\"/g, "");
-        alert(sname)
+        // alert(sname)
         // var oleStr = "testldld";
         // alert(oleStr)
         // var newStr = oldStr.substring(1, oldStr.length()-1);
@@ -384,6 +384,7 @@
         // d = d.replace();
         // name.replace(/\"/g, "");
         console.log(name)
+       
         var url="http://192.168.88.107:3000/api/user/searchpage?hotword="+sname
         var TrueData=[];
         alert(name)
@@ -416,13 +417,19 @@
                     var oBox = document.getElementById("box");
                     var oCar = document.getElementById("car");
                     var oUl = document.getElementsByTagName("ul")[0];
-
+                    var predata=sessionStorage.getItem('ocar')
+                    // var getcar=document.createElement("row hid")
+                    
+                    $("#car").append(predata)
+                    // var aBtn = getClass(oBox, "add_btn");
+                   
+                   
                     for (var i = 0; i < aData.length; i++) {
                         var oLi = document.createElement("li");
                         var data = aData[i];
 
                         oLi.innerHTML += '<div class="pro_img"><img src="' + data["imgUrl"] + '" width="150" height="150"></div>';
-                        oLi.innerHTML += '<h3 class="pro_name"><a href="#">' + data["proName"] + '</a></h3>';
+                        oLi.innerHTML += '<h3 class="pro_name"><a  onclick="getitemtagname(window.event)">' + data["proName"] + '</a></h3>';
                         oLi.innerHTML += '<p class="pro_price">' + data["proPrice"] + '元</p>';
                         oLi.innerHTML += '<p class="pro_rank">' + data["proComm"] + '万人好评</p>';
                         oLi.innerHTML += '<div class="add_btn">加入购物车</div>';
@@ -430,12 +437,18 @@
 
                     }
                     var aBtn = getClass(oBox, "add_btn");//获取box下的所有添加购物车按钮
+                    console.log(aBtn);
                     var number = 0;//初始化商品数量
                     for (var i = 0; i < aBtn.length; i++) {
                         number++;
                         aBtn[i].index = i;
                         aBtn[i].onclick = function() {
+                            // console.log($('#box').html())
                             var oDiv = document.createElement("div");
+                           
+                            let newdata=$(".row hid").html();
+                            // let add=document.createElement("div")
+                            // console.log(oCar)//购物车对象
                             var data = aData[this.index];
                             oDiv.className = "row hid";
                             oDiv.innerHTML += '<div class="check left"> <i class="i_check" id="i_check" onclick="i_check()" >√</i></div>';
@@ -446,6 +459,12 @@
                             oDiv.innerHTML += '<div class="subtotal left"><span>' + data["proPrice"] + '元</span></div>'
                             oDiv.innerHTML += '<div class="ctrl left"><a href="javascript:;">×</a></div>';
                             oCar.appendChild(oDiv);
+                            // console.log(oDiv)
+                            // add.innerHTML=predata;
+                            // oCar.appendChild(add)
+                        
+                            
+                            
                             var flag = true;
                             var check = oDiv.firstChild.getElementsByTagName("i")[0];
                             check.onclick = function() {
@@ -489,6 +508,7 @@
                                     at.innerText = price * num + "元";
                                     //计算总计值
                                     getAmount();
+                                   
                                 }
                             }
                             //获取所有的数量减号按钮
@@ -526,7 +546,19 @@
                                     getAmount();
                                 }
                             }
-
+                           
+                            // console.log($("#car").find('.row hid').prevObject[0].innerHTML)
+                            // console.log($(".row.hid")[0].innerHTML)
+                            var cache='';
+                            $(".row.hid").each(function(){
+                                //  console.log(typeof $(this).html())
+                                //  cache=$(this).html()+$(this).html()
+                                //  console.log($(this).html());
+                                //  cache=cache+'"<div class="row hid">"'+$(this).html()+"</div>"
+                                 cache=cache+'<div class="row hid">'+$(this).html()+'</div>'
+                            })
+                            console.log(cache);
+                            sessionStorage.setItem('ocar',cache);
                         }
                     }
                 },
@@ -725,6 +757,7 @@
                 aBox.push(aTag[i]);
             }
         }
+        console.log("add")
         return aBox;
     }
 
@@ -778,7 +811,126 @@
             sum += num;
             document.getElementById("price_num").innerText = sum;
         }
+      
     }
+    function getitemtagname(event){
+        var that=this;
+        return new Promise(function(resolve,reject){
+            resolve(alert("alert onclick"))
+        }).then(r=>{
+           var product=
+           {
+               itemname:that.event.toElement.text,
+               itemurl:that.event.toElement.parentNode.parentNode.childNodes[0].childNodes[0].currentSrc,
+               itemprice:that.event.toElement.parentNode.parentNode.childNodes[2].textContent,
+           }
+        //    let itemname=that.event.toElement.text
+        //    let imgurl=XXXX
+        // console.log()
+        // console.log(that.event.toElement.parentNode.parentNode.childNodes[0].childNodes[0].currentSrc)
+        // console.log(that.event.toElement.parentNode.parentNode.childNodes[2].textContent)
+           sessionStorage.setItem("getname",JSON.stringify(product))
+           location.href=("http://192.168.88.107:9999/introduction.html")
+        }
+            
+            )
+            // location.href="http://192.168.88.107:9999/introduction.html")
+
+            // alert("alert onclick").then(function(resolve,reject){
+            //             resolve(location.href="http://192.168.88.107:9999/introduction.html")
+            // })
+            // // href="http://192.168.88.107:9999/introduction.html"
+            // // return new Promise(function(resolve,reject){
+            // //     resolve(alert("onclick")).then(function(resolve,reject){
+            // //         resolve(location.href="http://192.168.88.107:9999/introduction.html")
+            // //     })
+            // // })
+            
+            
+            
+        }
+        function render(){
+             var check = oDiv.firstChild.getElementsByTagName("i")[0];
+                            check.onclick = function() {
+                                // console.log(check.className);
+                                if (check.className == "i_check i_acity") {
+                                    check.classList.remove("i_acity");
+
+                                } else {
+                                    check.classList.add("i_acity");
+                                }
+                                getAmount();
+                            }
+                            var delBtn = oDiv.lastChild.getElementsByTagName("a")[0];
+                            delBtn.onclick = function() {
+                                var result = confirm("确定删除吗?");
+                                if (result) {
+                                    oCar.removeChild(oDiv);
+                                    number--;
+                                    getAmount();
+                                }
+                            }
+                            var i_btn = document.getElementsByClassName("count_i");
+                            for (var k = 0; k < i_btn.length; k++) {
+                                i_btn[k].onclick = function() {
+                                    bt = this;
+                                    //获取小计节点
+                                    at = this.parentElement.parentElement.nextElementSibling;
+                                    //获取单价节点
+                                    pt = this.parentElement.parentElement.previousElementSibling;
+                                    //获取数量值
+                                    node = bt.parentNode.childNodes[1];
+                                    console.log(node);
+                                    num = node.innerText;
+                                    num = parseInt(num);
+                                    num++;
+                                    node.innerText = num;
+                                    //获取单价
+                                    price = pt.innerText;
+                                    price = price.substring(0, price.length - 1);
+                                    //计算小计值
+                                    at.innerText = price * num + "元";
+                                    //计算总计值
+                                    getAmount();
+                                   
+                                }
+                            }
+                            //获取所有的数量减号按钮
+                            var d_btn = document.getElementsByClassName("count_d");
+                            for (k = 0; k < i_btn.length; k++) {
+                                d_btn[k].onclick = function() {
+                                    bt = this;
+                                    //获取小计节点
+                                    at = this.parentElement.parentElement.nextElementSibling;
+                                    //获取单价节点
+                                    pt = this.parentElement.parentElement.previousElementSibling;
+                                    //获取c_num节点
+                                    node = bt.parentNode.childNodes[1];
+                                    num = node.innerText;
+                                    num = parseInt(num);
+                                    if (num > 1) {
+                                        num--;
+                                    }
+                                    node.innerText = num;
+                                    //获取单价
+                                    price = pt.innerText;
+                                    price = price.substring(0, price.length - 1);
+                                    //计算小计值
+                                    at.innerText = price * num + "元";
+                                    //计算总计值
+                                    getAmount();
+                                }
+                            }
+
+                            delBtn.onclick = function() {
+                                var result = confirm("确定删除吗?");
+                                if (result) {
+                                    oCar.removeChild(oDiv);
+                                    number--;
+                                    getAmount();
+                                }
+                            }
+        }
 </script>
 </head>
 <body>
@@ -787,7 +939,7 @@
 
 <div id="car" class="car">
 
-    <div class="head_row hid">
+    <div id="head_row hid" class="head_row hid">
         <div class="check left"> <i onclick="checkAll()">√</i></div>
         <div class="img left">&nbsp;&nbsp;全选</div>
         <div class="name left">商品名称</div>
@@ -795,6 +947,7 @@
         <div class="number left">数量</div>
         <div class="subtotal left">小计</div>
         <div class="ctrl left">操作</div>
+        
     </div>
 
 
@@ -862,8 +1015,30 @@
     <ul>
     </ul>
 </div>
-
-<button onclick="getHid()">test</button>
+<div style="text-align: center;">
+<div class="footer ">
+    <div class="footer-hd ">
+      <p>
+        <a href="# ">示例项目</a>
+        <b>|</b>
+        <a href="# ">商城首页</a>
+        <b>|</b>
+        <a href="# ">支付宝</a>
+        <b>|</b>
+        <a href="# ">物流</a>
+      </p>
+    </div>
+    <div class="footer-bd ">
+      <p>
+        <a href="# " style="margin: 0px 5px 0px 5px;">关于我们</a>
+        <a href="# " style="margin: 0px 5px 0px 5px;">合作伙伴</a>
+        <a href="# " style="margin: 0px 5px 0px 5px;">联系我们</a>
+        <a href="# " style="margin: 0px 5px 0px 5px;">网站地图</a>
+        <em>© 2015-2025 TEST.com 版权所有</em>
+      </p>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
